@@ -56,7 +56,13 @@ jobs:
             5. Publica exactamente UN comentario de diagnóstico técnico, en español,
                mediante:
                `echo "<comentario en markdown>" | bash scripts/post-issue-comment.sh`
-               El comentario debe incluir:
+               El comentario debe estar escrito en formato Markdown válido de GitHub
+               (GitHub Flavored Markdown), de forma que GitHub lo renderice correctamente:
+               usa encabezados (`##`), listas con `-`, bloques de código con triple
+               backtick y el lenguaje (` ```js `) para fragmentos de game.js/index.html,
+               `código en línea` con backticks simples para nombres de funciones/variables,
+               y referencias a issues como `#<número>` (nunca uses HTML crudo). El
+               comentario debe incluir:
                - Resumen del diagnóstico (tipo de issue, causa raíz si aplica)
                - Archivo(s)/función(es) concretas involucradas
                - Enfoque sugerido para la solución (debe servir de base para implementar
