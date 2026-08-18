@@ -1,0 +1,72 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+            TITLE: ${{ github.event.issue.title }}
+            BODY: ${{ github.event.issue.body }}
+            AUTHOR: ${{ github.event.issue.user.login }}
+
+            Este repo es un Tetris vanilla (HTML5 Canvas + CSS + JS puro). Toda la lógica
+            del juego vive en game.js (~300 líneas): board (matriz ROWS x COLS), PIECES,
+            rotateCW, collide(), tryRotate() (wall kicks), loop() (RAF), clearLines(),
+            scoring (LINE_SCORES x level), leveling, ghostY(). El resto de la maquetación
+            está en index.html.
+
+            Antes de diagnosticar, lee game.js e index.html (usa tus herramientas de
+            lectura/búsqueda de archivos) para entender si el problema descrito en el
+            issue tiene una causa real identificable en el código, en vez de limitarte a
+            repetir el texto del issue.
+
+            Tu tarea:
+            1. Clasifica el issue: bug, enhancement, question, documentation,
+               accessibility, duplicate, invalid, etc.
+            2. Si es un bug: identifica la causa raíz real (función/variable/lógica
+               concreta en game.js o index.html), si es posible reproducirla a partir de
+               la descripción.
+            3. Comprueba si es duplicado de otro issue ya existente:
+               `bash scripts/gh.sh search issues "..."` y/o
+               `bash scripts/gh.sh issue list --state open --limit 20`.
+            4. Asigna las labels apropiadas ÚNICAMENTE mediante:
+               `bash scripts/edit-issue-labels.sh --add-label "label1" --add-label "label2"`
+               (el número de issue se lee automáticamente del evento; el script ignora
+               cualquier label que no exista ya en el repo — nunca inventes labels nuevas).
+            5. Publica exactamente UN comentario de diagnóstico técnico, en español,
+               mediante:
+               `echo "<comentario en markdown>" | bash scripts/post-issue-comment.sh`
+               El comentario debe incluir:
+               - Resumen del diagnóstico (tipo de issue, causa raíz si aplica)
+               - Archivo(s)/función(es) concretas involucradas
+               - Enfoque sugerido para la solución (debe servir de base para implementar
+                 el fix después — no hace falta escribir el código, solo el enfoque)
+               - Si es duplicado, referencia al issue original con "#<número>"
+
+            No edites el título ni el cuerpo del issue. No lo cierres. No comentes más de
+            una vez por ejecución. No uses ninguna otra herramienta de gh distinta a los
+            scripts indicados.
+
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(bash scripts/gh.sh:*),Bash(bash scripts/edit-issue-labels.sh:*),Bash(bash scripts/post-issue-comment.sh:*)"
+            --max-turns 15
