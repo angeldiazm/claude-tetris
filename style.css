@@ -138,6 +138,154 @@ body {
   border-color: var(--accent);
 }
 
+/* ---- Records ---- */
+.records-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.record-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.record-row.is-current {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.rec-rank {
+  color: var(--label);
+  width: 14px;
+}
+
+.record-row.is-current .rec-rank {
+  color: var(--accent-text);
+}
+
+.rec-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rec-score {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.no-records {
+  font-size: 12px;
+  color: var(--control-text);
+}
+
+.stats-row {
+  display: flex;
+  gap: 10px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stats-label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--label);
+}
+
+.stats-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.reset-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--control-text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.reset-btn:hover {
+  border-color: var(--overlay-title);
+  color: var(--overlay-title);
+}
+
+.overlay-records {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  min-width: 200px;
+}
+
+.overlay-records .records-list {
+  width: 100%;
+}
+
+.overlay-records .stats-row {
+  justify-content: center;
+}
+
+.highscore-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.highscore-form.hidden {
+  display: none;
+}
+
+.highscore-msg {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+#player-name {
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  text-align: center;
+  width: 160px;
+}
+
+#save-score-btn {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#save-score-btn:hover {
+  background: var(--accent-hover);
+}
+
 /* ---- Controles ---- */
 .controls ul {
   list-style: none;
