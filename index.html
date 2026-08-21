@@ -35,6 +35,22 @@
           <canvas id="next-canvas" width="120" height="120"></canvas>
         </div>
 
+        <div class="panel-section records-section">
+          <span class="label">RECORDS</span>
+          <ol id="records-list" class="records-list"></ol>
+          <div class="stats-row">
+            <div class="stat-box">
+              <span class="stats-label">Mejor combo</span>
+              <span class="stats-value" id="best-combo">0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stats-label">Líneas máx</span>
+              <span class="stats-value" id="max-lines">0</span>
+            </div>
+          </div>
+          <button id="reset-records-btn" type="button" class="reset-btn">Resetear récords</button>
+        </div>
+
         <div class="panel-section controls">
           <span class="label">CONTROLS</span>
           <ul>
@@ -52,6 +68,28 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+
+        <div id="highscore-form" class="highscore-form hidden">
+          <p class="highscore-msg">¡Nueva puntuación en el top 5!</p>
+          <input id="player-name" type="text" maxlength="12" placeholder="Tu nombre" autocomplete="off" />
+          <button id="save-score-btn" type="button">Guardar</button>
+        </div>
+
+        <div class="overlay-records">
+          <span class="label">RECORDS</span>
+          <ol id="overlay-records-list" class="records-list"></ol>
+          <div class="stats-row">
+            <div class="stat-box">
+              <span class="stats-label">Mejor combo</span>
+              <span class="stats-value" id="overlay-best-combo">0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stats-label">Líneas máx</span>
+              <span class="stats-value" id="overlay-max-lines">0</span>
+            </div>
+          </div>
+        </div>
+
         <button id="restart-btn">Reiniciar</button>
       </div>
     </div>
