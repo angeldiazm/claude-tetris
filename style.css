@@ -21,6 +21,7 @@
   --overlay-title: #e57373;
   --grid-line: #22222e;
   --shadow: rgba(0, 0, 0, 0.6);
+  --canvas-bg: #1a1a25;
 }
 
 body.light-theme {
@@ -40,6 +41,23 @@ body.light-theme {
   --overlay-title: #c62828;
   --grid-line: #dcdce4;
   --shadow: rgba(0, 0, 0, 0.15);
+  --canvas-bg: #ffffff;
+}
+
+/* ---- Skins ---- */
+body.skin-neon {
+  --canvas-bg: #050508;
+  --grid-line: #14141f;
+}
+
+body.skin-pastel {
+  --canvas-bg: #fdf6f0;
+  --grid-line: #f0e2ea;
+}
+
+body.light-theme.skin-pastel {
+  --canvas-bg: #fffaf5;
+  --grid-line: #f2e6ee;
 }
 
 body {
@@ -77,9 +95,10 @@ body {
 #board {
   display: block;
   border: 1px solid var(--border);
-  background: var(--panel-bg);
+  background: var(--canvas-bg);
   border-radius: 4px;
   box-shadow: 0 0 40px var(--shadow);
+  transition: background 0.2s;
 }
 
 /* ---- Panel lateral ---- */
@@ -115,8 +134,9 @@ body {
 #next-canvas {
   display: block;
   border: 1px solid var(--border);
-  background: var(--panel-bg);
+  background: var(--canvas-bg);
   border-radius: 4px;
+  transition: background 0.2s;
 }
 
 /* ---- Tema ---- */
@@ -284,6 +304,27 @@ body {
 
 #save-score-btn:hover {
   background: var(--accent-hover);
+}
+
+/* ---- Skin selector ---- */
+#skin-select {
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+#skin-select:hover,
+#skin-select:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 /* ---- Controles ---- */
