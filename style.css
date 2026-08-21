@@ -188,11 +188,86 @@ kbd {
   align-items: center;
 }
 
-#overlay-title {
+#overlay-title,
+.overlay-title {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: 4px;
   color: var(--overlay-title);
+}
+
+/* ---- Menú de pausa ---- */
+.pause-box {
+  min-width: 220px;
+}
+
+.pause-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pause-menu button {
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.pause-menu button:hover {
+  border-color: var(--accent);
+}
+
+#resume-btn {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+}
+
+#resume-btn:hover {
+  background: var(--accent-hover);
+}
+
+.pause-menu .controls {
+  align-items: flex-start;
+  text-align: left;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.pause-menu .controls.hidden {
+  display: none;
+}
+
+.level-select-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--label);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.level-select-label select {
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 #overlay-score {
