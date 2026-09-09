@@ -1,0 +1,44 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: claude-triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Analiza la issue #${{ github.event.issue.number }} de este repositorio (un Tetris en JavaScript vanilla, sin build ni dependencias, con toda la lógica en game.js) y asígnale las etiquetas adecuadas.
+
+            Título: ${{ github.event.issue.title }}
+            Cuerpo:
+            ${{ github.event.issue.body }}
+
+            Pasos a seguir:
+            1. Ejecuta `gh label list` para ver qué etiquetas existen ya en el repositorio.
+            2. Decide qué etiquetas aplican según el tipo de issue (por ejemplo: bug, enhancement, documentation, question, duplicate, wontfix, invalid, help wanted, good first issue). Si el contenido de la issue apunta a un área concreta del juego (controles, puntuación, colisiones, rotación de piezas, renderizado, niveles/velocidad, etc.) y ya existe una etiqueta apropiada, aplícala también.
+            3. Si el tipo de issue lo requiere (bug/enhancement/question/documentation) y no existe ninguna etiqueta adecuada, créala con `gh label create <nombre> --color <hex>` usando un color razonable antes de aplicarla. No crees etiquetas de área/componente nuevas si no hay ya una convención establecida en el repo.
+            4. Aplica las etiquetas elegidas con `gh issue edit ${{ github.event.issue.number }} --add-label "etiqueta1,etiqueta2"`.
+            5. Publica un comentario breve en la issue con `gh issue comment ${{ github.event.issue.number }} --body "..."` resumiendo tu diagnóstico: qué tipo de problema es, qué parte del código probablemente está implicada (referencia game.js, index.html o style.css si aplica) y una primera valoración de la causa o el alcance. No propongas la solución todavía ni hagas cambios de código: este diagnóstico es solo para preparar el análisis y la solución posteriores.
+
+            No modifiques archivos del repositorio ni abras pull requests en este flujo.
+          claude_args: |
+            --allowedTools "Bash(gh label list:*),Bash(gh label create:*),Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh issue view:*)"
+          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
+          # or https://code.claude.com/docs/en/cli-reference for available options
